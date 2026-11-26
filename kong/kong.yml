@@ -36,6 +36,17 @@ plugins:
       key_names: [apikey]
       hide_credentials: true
 
+  # Reto 3 - Rate limiting: 5 solicitudes/minuto por consumidor.
+  # Alcance: global (contador compartido entre /api/estudiantes, /matriculas y /pagos
+  # para cada consumidor). policy=local: contador en memoria de ESTA instancia de Kong.
+  - name: rate-limiting
+    config:
+      minute: 5
+      limit_by: consumer
+      policy: local
+      fault_tolerant: true
+      hide_client_headers: false
+
 # Consumidor FICTICIO de prueba. La clave es de demostración, no un secreto real.
 consumers:
   - username: app-externa-demo
