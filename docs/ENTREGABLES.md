@@ -145,10 +145,6 @@ Cliente de pruebas: Thunder Client (colección en `thunder-client/`) o `tests/pr
 
 ---
 
-## 5. Declaración de uso de IA y fuentes
-
-**Uso de IA.** Se utilizó un asistente de IA generativa (Claude Code) como apoyo para estructurar el repositorio, redactar la configuración, los mocks, los scripts y este documento, y para depurar. Las pruebas se ejecutaron realmente en un entorno local y los resultados citados provienen de esas ejecuciones (ver `docs/evidencias/`). Hallazgos de depuración: el puerto 8000 ocupado por WSL, el 502 (en lugar del 503 supuesto) con el backend caído y la precedencia entre alcances de plugins. Cada decisión debe ser contrastada por el equipo con la documentación oficial; la IA no se cita como justificación.
-
 **Fuentes consultadas.**
 - Kong Gateway: https://developer.konghq.com/gateway/
 - Kong DB-less: https://developer.konghq.com/gateway/db-less-mode/
