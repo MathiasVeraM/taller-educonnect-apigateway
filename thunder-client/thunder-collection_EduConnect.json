@@ -1,0 +1,263 @@
+{
+  "clientName": "Thunder Client",
+  "collectionName": "EduConnect PoC",
+  "collectionId": "educonnect-poc-0001",
+  "dateExported": "2026-11-25T00:00:00.000Z",
+  "version": "1.2",
+  "folders": [],
+  "requests": [
+    {
+      "_id": "e92a57fa-36fa-58e0-bd41-c4970e5e230d",
+      "colId": "educonnect-poc-0001",
+      "containerId": "",
+      "name": "01 Estudiantes - key válida (200)",
+      "url": "{{baseUrl}}/api/estudiantes",
+      "method": "GET",
+      "sortNum": 10000,
+      "created": "2026-11-25T00:00:00.000Z",
+      "modified": "2026-11-25T00:00:00.000Z",
+      "headers": [
+        {
+          "name": "apikey",
+          "value": "{{apikey}}"
+        }
+      ],
+      "params": [],
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "200"
+        },
+        {
+          "type": "res-header",
+          "custom": "x-served-by",
+          "action": "equal",
+          "value": "estudiantes"
+        }
+      ]
+    },
+    {
+      "_id": "9b856eab-f179-53b4-be2c-d4924fe72e67",
+      "colId": "educonnect-poc-0001",
+      "containerId": "",
+      "name": "02 Matrículas - key válida (200)",
+      "url": "{{baseUrl}}/api/matriculas",
+      "method": "GET",
+      "sortNum": 20000,
+      "created": "2026-11-25T00:00:00.000Z",
+      "modified": "2026-11-25T00:00:00.000Z",
+      "headers": [
+        {
+          "name": "apikey",
+          "value": "{{apikey}}"
+        }
+      ],
+      "params": [],
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "200"
+        },
+        {
+          "type": "res-header",
+          "custom": "x-served-by",
+          "action": "equal",
+          "value": "matriculas"
+        }
+      ]
+    },
+    {
+      "_id": "5a823527-3c8f-5d4a-b85e-a63cca65bbd5",
+      "colId": "educonnect-poc-0001",
+      "containerId": "",
+      "name": "03 Pagos - key válida (200)",
+      "url": "{{baseUrl}}/api/pagos",
+      "method": "GET",
+      "sortNum": 30000,
+      "created": "2026-11-25T00:00:00.000Z",
+      "modified": "2026-11-25T00:00:00.000Z",
+      "headers": [
+        {
+          "name": "apikey",
+          "value": "{{apikey}}"
+        }
+      ],
+      "params": [],
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "200"
+        },
+        {
+          "type": "res-header",
+          "custom": "x-served-by",
+          "action": "equal",
+          "value": "pagos"
+        }
+      ]
+    },
+    {
+      "_id": "40c5e353-0b7a-5bf9-8737-89ab8510fafa",
+      "colId": "educonnect-poc-0001",
+      "containerId": "",
+      "name": "04 Sin API Key (401)",
+      "url": "{{baseUrl}}/api/estudiantes",
+      "method": "GET",
+      "sortNum": 40000,
+      "created": "2026-11-25T00:00:00.000Z",
+      "modified": "2026-11-25T00:00:00.000Z",
+      "headers": [],
+      "params": [],
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "401"
+        }
+      ]
+    },
+    {
+      "_id": "e40a220a-461e-5e5a-9445-d9f3b1a2ea99",
+      "colId": "educonnect-poc-0001",
+      "containerId": "",
+      "name": "05 API Key incorrecta (401)",
+      "url": "{{baseUrl}}/api/estudiantes",
+      "method": "GET",
+      "sortNum": 50000,
+      "created": "2026-11-25T00:00:00.000Z",
+      "modified": "2026-11-25T00:00:00.000Z",
+      "headers": [
+        {
+          "name": "apikey",
+          "value": "incorrecta"
+        }
+      ],
+      "params": [],
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "401"
+        }
+      ]
+    },
+    {
+      "_id": "7f1cea59-56ab-5566-b94d-11b9b66b2d84",
+      "colId": "educonnect-poc-0001",
+      "containerId": "",
+      "name": "06 Ruta no registrada (404)",
+      "url": "{{baseUrl}}/api/inexistente",
+      "method": "GET",
+      "sortNum": 60000,
+      "created": "2026-11-25T00:00:00.000Z",
+      "modified": "2026-11-25T00:00:00.000Z",
+      "headers": [
+        {
+          "name": "apikey",
+          "value": "{{apikey}}"
+        }
+      ],
+      "params": [],
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "404"
+        }
+      ]
+    },
+    {
+      "_id": "05af05b7-916b-5dfe-afd7-d55f2f537eac",
+      "colId": "educonnect-poc-0001",
+      "containerId": "",
+      "name": "07 Certificados - key válida (200)",
+      "url": "{{baseUrl}}/api/certificados",
+      "method": "GET",
+      "sortNum": 70000,
+      "created": "2026-11-25T00:00:00.000Z",
+      "modified": "2026-11-25T00:00:00.000Z",
+      "headers": [
+        {
+          "name": "apikey",
+          "value": "{{apikey}}"
+        }
+      ],
+      "params": [],
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "200"
+        },
+        {
+          "type": "res-header",
+          "custom": "x-served-by",
+          "action": "equal",
+          "value": "certificados"
+        }
+      ]
+    },
+    {
+      "_id": "f6679ea7-d77e-54cf-8123-2c3683eedcb6",
+      "colId": "educonnect-poc-0001",
+      "containerId": "",
+      "name": "08 Rate limit - ejecutar 6+ veces seguidas (la 6ª da 429)",
+      "url": "{{baseUrl}}/api/estudiantes",
+      "method": "GET",
+      "sortNum": 80000,
+      "created": "2026-11-25T00:00:00.000Z",
+      "modified": "2026-11-25T00:00:00.000Z",
+      "headers": [
+        {
+          "name": "apikey",
+          "value": "{{apikey}}"
+        }
+      ],
+      "params": [],
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "200"
+        }
+      ]
+    },
+    {
+      "_id": "d9b73504-387c-5ab4-87d7-90a87c917d36",
+      "colId": "educonnect-poc-0001",
+      "containerId": "",
+      "name": "09 Backend caído - detener pagos antes (502)",
+      "url": "{{baseUrl}}/api/pagos",
+      "method": "GET",
+      "sortNum": 90000,
+      "created": "2026-11-25T00:00:00.000Z",
+      "modified": "2026-11-25T00:00:00.000Z",
+      "headers": [
+        {
+          "name": "apikey",
+          "value": "{{apikey}}"
+        }
+      ],
+      "params": [],
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "502"
+        }
+      ]
+    }
+  ]
+}

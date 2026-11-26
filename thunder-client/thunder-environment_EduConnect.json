@@ -1,0 +1,19 @@
+{
+  "_id": "educonnect-env-0001",
+  "name": "EduConnect local",
+  "default": true,
+  "global": false,
+  "local": true,
+  "sortNum": 1,
+  "created": "2026-11-25T00:00:00.000Z",
+  "data": [
+    {
+      "name": "baseUrl",
+      "value": "http://localhost:8080"
+    },
+    {
+      "name": "apikey",
+      "value": "demo-key-educonnect-2026"
+    }
+  ]
+}

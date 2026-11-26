@@ -1,0 +1,45 @@
+
+== Reto 1/2 - rutas con API Key valida (3 de las 5 solicitudes del minuto)
+[OK ] GET /api/estudiantes con key valida                  esperado=200 obtenido=200
+      {"servicio":"estudiantes","id":101,"nombre":"Ana Perez"}
+[OK ] GET /api/matriculas  con key valida                  esperado=200 obtenido=200
+      {"servicio":"matriculas","id":501,"estudianteId":101,"estado":"ACTIVA"}
+[OK ] GET /api/pagos       con key valida                  esperado=200 obtenido=200
+      {"servicio":"pagos","id":701,"matriculaId":501,"valor":150,"estado":"PENDIENTE"}
+
+== Reto 2 - autenticacion (no consumen cuota: fallan antes del rate limiting)
+[OK ] Sin API Key                                          esperado=401 obtenido=401
+      {   "message":"No API key found in request",   "request_id":"2d407a3049fca278197c8d19592f6d3f" }
+[OK ] API Key incorrecta                                   esperado=401 obtenido=401
+      {   "message":"Unauthorized",   "request_id":"15950c583e89281ece554b2d53345a27" }
+
+== Reto 4 - ruta no registrada
+[OK ] GET /api/inexistente con key valida                  esperado=404 obtenido=404
+      {   "message":"no Route matched with those values",   "request_id":"2e2a677f172e080e01160462e8a28215" }
+
+== Reto 3 - rate limiting (se espera al inicio del siguiente minuto para una ventana limpia)
+Ventana iniciada ~ 23:40:01
+[OK ] Solicitud 1/5 (dentro del limite)                    esperado=200 obtenido=200
+      {"servicio":"estudiantes","id":101,"nombre":"Ana Perez"}
+[OK ] Solicitud 2/5 (dentro del limite)                    esperado=200 obtenido=200
+      {"servicio":"estudiantes","id":101,"nombre":"Ana Perez"}
+[OK ] Solicitud 3/5 (dentro del limite)                    esperado=200 obtenido=200
+      {"servicio":"estudiantes","id":101,"nombre":"Ana Perez"}
+[OK ] Solicitud 4/5 (dentro del limite)                    esperado=200 obtenido=200
+      {"servicio":"estudiantes","id":101,"nombre":"Ana Perez"}
+[OK ] Solicitud 5/5 (dentro del limite)                    esperado=200 obtenido=200
+      {"servicio":"estudiantes","id":101,"nombre":"Ana Perez"}
+[OK ] Solicitud 6 (supera el limite)                       esperado=429 obtenido=429
+      {   "message":"API rate limit exceeded",   "request_id":"efe7ba148de5463e37b16246047dc76c" }
+[OK ] Solicitud 7 (otra ruta, mismo consumidor)            esperado=429 obtenido=429
+      {   "message":"API rate limit exceeded",   "request_id":"cb6e6f5c0507ae7357b12114f998d65b" }
+Retry-After: 58
+X-RateLimit-Remaining-Minute: 0
+X-RateLimit-Limit-Minute: 5
+
+== Reto 4 - backend no disponible (se detiene SOLO pagos)
+(se espera la siguiente ventana para tener cuota)
+[FALLA] GET /api/pagos con backend detenido                  esperado=503 obtenido=502
+      {   "message":"An invalid response was received from the upstream server",   "request_id":"8cc36b5a6f5ab17d026b3a4dd05f0400" }
+
+Resumen: 14 pruebas, 1 fallas
