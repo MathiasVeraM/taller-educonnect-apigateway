@@ -27,3 +27,17 @@ services:
         paths: [/api/pagos]
         methods: [GET]
         strip_path: true
+
+# Reto 2 - Autenticación por API Key (plugin global: toda ruta queda protegida por defecto).
+# Cabecera de la credencial: apikey. No se reenvía a los backends.
+plugins:
+  - name: key-auth
+    config:
+      key_names: [apikey]
+      hide_credentials: true
+
+# Consumidor FICTICIO de prueba. La clave es de demostración, no un secreto real.
+consumers:
+  - username: app-externa-demo
+    keyauth_credentials:
+      - key: demo-key-educonnect-2026
