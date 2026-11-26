@@ -35,7 +35,7 @@ services:
     volumes:
       - ./kong/kong.yml:/kong/kong.yml:ro
     ports:
-      - "8000:8000"             # único punto de entrada público (proxy)
+      - "8080:8000"             # único punto de entrada público (proxy): host 8080 -> Kong 8000
       - "127.0.0.1:8001:8001"   # Admin API solo en localhost
     depends_on: [estudiantes, matriculas, pagos]
 
