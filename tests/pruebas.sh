@@ -35,6 +35,11 @@ probar "Solicitud 6 (supera el limite)"       429 -H "$H" "$BASE/api/estudiantes
 probar "Solicitud 7 (otra ruta, mismo consumidor)" 429 -H "$H" "$BASE/api/pagos"
 curl -si -H "$H" "$BASE/api/pagos" | grep -iE "^(retry-after|x-ratelimit-(limit|remaining)-minute)"
 
+sec "Desafio de transferencia - /api/certificados (limite propio 3/min, contador independiente)"
+probar "Certificados sin API Key"              401 "$BASE/api/certificados"
+for i in 1 2 3; do probar "Certificados solicitud $i/3" 200 -H "$H" "$BASE/api/certificados"; done
+probar "Certificados solicitud 4 (supera 3/min)" 429 -H "$H" "$BASE/api/certificados"
+
 sec "Reto 4 - backend no disponible (se detiene SOLO pagos)"
 docker compose stop pagos >/dev/null 2>&1
 echo "(se espera la siguiente ventana para tener cuota)"; sleep $((61 - 10#$(date +%S)))

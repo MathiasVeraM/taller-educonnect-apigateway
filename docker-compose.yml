@@ -19,6 +19,10 @@ services:
     <<: *mock
     environment: { SERVICE: pagos, PORT: "3000" }
 
+  certificados:           # Desafío de transferencia: cuarto servicio
+    <<: *mock
+    environment: { SERVICE: certificados, PORT: "3000" }
+
   kong:
     image: kong:3.9.1   # versión fijada (ver docs/ENTREGABLES.md)
     restart: unless-stopped
@@ -37,7 +41,7 @@ services:
     ports:
       - "8080:8000"             # único punto de entrada público (proxy): host 8080 -> Kong 8000
       - "127.0.0.1:8001:8001"   # Admin API solo en localhost
-    depends_on: [estudiantes, matriculas, pagos]
+    depends_on: [estudiantes, matriculas, pagos, certificados]
 
 networks:
   educonnect-net:

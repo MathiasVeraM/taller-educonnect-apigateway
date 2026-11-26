@@ -9,16 +9,16 @@
 
 == Reto 2 - autenticacion (no consumen cuota: fallan antes del rate limiting)
 [OK ] Sin API Key                                          esperado=401 obtenido=401
-      {   "message":"No API key found in request",   "request_id":"2d407a3049fca278197c8d19592f6d3f" }
+      {   "message":"No API key found in request",   "request_id":"2cc1d46f8e65d860591f470307f9b60b" }
 [OK ] API Key incorrecta                                   esperado=401 obtenido=401
-      {   "message":"Unauthorized",   "request_id":"15950c583e89281ece554b2d53345a27" }
+      {   "message":"Unauthorized",   "request_id":"a94823444872135fefc8e225231d852a" }
 
 == Reto 4 - ruta no registrada
 [OK ] GET /api/inexistente con key valida                  esperado=404 obtenido=404
-      {   "message":"no Route matched with those values",   "request_id":"2e2a677f172e080e01160462e8a28215" }
+      {   "message":"no Route matched with those values",   "request_id":"ee16125c962a0d3e00de4b47b424b063" }
 
 == Reto 3 - rate limiting (se espera al inicio del siguiente minuto para una ventana limpia)
-Ventana iniciada ~ 23:40:01
+Ventana iniciada ~ 23:45:01
 [OK ] Solicitud 1/5 (dentro del limite)                    esperado=200 obtenido=200
       {"servicio":"estudiantes","id":101,"nombre":"Ana Perez"}
 [OK ] Solicitud 2/5 (dentro del limite)                    esperado=200 obtenido=200
@@ -30,16 +30,29 @@ Ventana iniciada ~ 23:40:01
 [OK ] Solicitud 5/5 (dentro del limite)                    esperado=200 obtenido=200
       {"servicio":"estudiantes","id":101,"nombre":"Ana Perez"}
 [OK ] Solicitud 6 (supera el limite)                       esperado=429 obtenido=429
-      {   "message":"API rate limit exceeded",   "request_id":"efe7ba148de5463e37b16246047dc76c" }
+      {   "message":"API rate limit exceeded",   "request_id":"bc5c395b338d9a0e8eb4955465a55c1f" }
 [OK ] Solicitud 7 (otra ruta, mismo consumidor)            esperado=429 obtenido=429
-      {   "message":"API rate limit exceeded",   "request_id":"cb6e6f5c0507ae7357b12114f998d65b" }
+      {   "message":"API rate limit exceeded",   "request_id":"7bffad6d7e7d787a89c2e1496a16c049" }
+X-RateLimit-Limit-Minute: 5
 Retry-After: 58
 X-RateLimit-Remaining-Minute: 0
-X-RateLimit-Limit-Minute: 5
+
+== Desafio de transferencia - /api/certificados (limite propio 3/min, contador independiente)
+[OK ] Certificados sin API Key                             esperado=401 obtenido=401
+      {   "message":"No API key found in request",   "request_id":"6ce87558f48944058f62e3456a1f5167" }
+[OK ] Certificados solicitud 1/3                           esperado=200 obtenido=200
+      {"servicio":"certificados","id":901,"estudianteId":101,"tipo":"CERTIFICADO_MATRICULA","estado":"EMITIDO"}
+[OK ] Certificados solicitud 2/3                           esperado=200 obtenido=200
+      {"servicio":"certificados","id":901,"estudianteId":101,"tipo":"CERTIFICADO_MATRICULA","estado":"EMITIDO"}
+[OK ] Certificados solicitud 3/3                           esperado=200 obtenido=200
+      {"servicio":"certificados","id":901,"estudianteId":101,"tipo":"CERTIFICADO_MATRICULA","estado":"EMITIDO"}
+[OK ] Certificados solicitud 4 (supera 3/min)              esperado=429 obtenido=429
+      {   "message":"API rate limit exceeded",   "request_id":"35595b42a2593a5716abcd60f1b5941d" }
 
 == Reto 4 - backend no disponible (se detiene SOLO pagos)
 (se espera la siguiente ventana para tener cuota)
-[FALLA] GET /api/pagos con backend detenido                  esperado=503 obtenido=502
-      {   "message":"An invalid response was received from the upstream server",   "request_id":"8cc36b5a6f5ab17d026b3a4dd05f0400" }
+[OK ] GET /api/pagos con backend detenido                  esperado=502 obtenido=502
+      {   "message":"An invalid response was received from the upstream server",   "request_id":"d5e6d465a55f6335575bf13c50e68253" }
+kong-1  | 2026/11/26 04:46:31 [error] 1406#0: *5185 connect() failed (113: No route to host) while connecting to upstream, client: 172.18.0.1, server: kong, request: "GET /api/pagos HTTP/1.1", upstream: "http://172.18.0.4:3000/pag
 
-Resumen: 14 pruebas, 1 fallas
+Resumen: 19 pruebas, 0 fallas

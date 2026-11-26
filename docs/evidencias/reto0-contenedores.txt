@@ -1,0 +1,10 @@
+$ docker compose ps
+NAME                        IMAGE                     COMMAND                  SERVICE        CREATED         STATUS                   PORTS
+educonnect-certificados-1   educonnect-certificados   "docker-entrypoint.s…"   certificados   4 minutes ago   Up 4 minutes             
+educonnect-estudiantes-1    educonnect-estudiantes    "docker-entrypoint.s…"   estudiantes    9 minutes ago   Up 9 minutes             
+educonnect-kong-1           kong:3.9.1                "/docker-entrypoint.…"   kong           8 minutes ago   Up 2 minutes (healthy)   127.0.0.1:8001->8001/tcp, 0.0.0.0:8080->8000/tcp, [::]:8080->8000/tcp
+educonnect-matriculas-1     educonnect-matriculas     "docker-entrypoint.s…"   matriculas     9 minutes ago   Up 9 minutes             
+educonnect-pagos-1          educonnect-pagos          "docker-entrypoint.s…"   pagos          9 minutes ago   Up 3 seconds             
+
+$ docker compose exec kong kong version
+3.9.1

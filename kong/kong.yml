@@ -28,6 +28,24 @@ services:
         methods: [GET]
         strip_path: true
 
+  # Desafío de transferencia - Certificados Académicos
+  - name: svc-certificados
+    url: http://certificados:3000/certificados
+    routes:
+      - name: route-certificados
+        paths: [/api/certificados]
+        methods: [GET]
+        strip_path: true
+        plugins:
+          # Límite propio (3/min por consumidor). Un plugin en la Route es más específico
+          # que el global, así que lo reemplaza SOLO para /api/certificados.
+          - name: rate-limiting
+            config:
+              minute: 3
+              limit_by: consumer
+              policy: local
+              fault_tolerant: true
+
 # Reto 2 - Autenticación por API Key (plugin global: toda ruta queda protegida por defecto).
 # Cabecera de la credencial: apikey. No se reenvía a los backends.
 plugins:
